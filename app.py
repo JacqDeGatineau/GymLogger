@@ -1,10 +1,12 @@
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "hei maailma"
+    words = ["jazzy", "sensation", "can you feel it?"]
+    return render_template("index.html", message="Hoywd!", items=words)
 
 @app.route("/page1")
 def page1():

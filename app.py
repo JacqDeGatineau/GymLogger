@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 
 app = Flask(__name__)
 
@@ -7,6 +7,17 @@ app = Flask(__name__)
 def index():
     words = ["jazzy", "sensation", "can you feel it?"]
     return render_template("index.html", message="Hoywd!", items=words)
+
+@app.route("/form")
+def form():
+    return render_template("form.html")
+
+@app.route("/result", methods=["POST"])
+def reult():
+    exercise = request.form.get("exercise")
+    sets = request.form["sets"]
+    reps = request.form["reps"]
+    return render_template("result.html", exercise=exercise, sets=sets, reps=reps)
 
 @app.route("/page1")
 def page1():

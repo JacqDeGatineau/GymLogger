@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add exercise</title>
+    </head>
+
+    <body>
+        <form action="/result" method="post">
+            <p>Add an exercise:</p>
+            <p>
+                <input type="radio" name="exercise" value="Bench" /> Bench
+                <input type="radio" name="exercise" value="Deadlift" /> Deadlift
+                <input type="radio" name="exercise" value="Squat" /> Squat
+            </p>
+            <p>Amount of sets:</p>
+            <p><input type="number" name="sets" min="1" value="3"/> Sets</p>
+            <p>Amount of reps:</p>
+            <p><input type="number" name="reps" min="1" value="5"/> Sets</p>
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+
+</html>

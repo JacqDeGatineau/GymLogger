@@ -1,10 +1,13 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash
+import config
 import db
 
 app = Flask(__name__)
+#for development only! Change for production!
+app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
@@ -13,14 +16,14 @@ def index():
     result = db.query("SELECT COUNT(*) FROM visits")
     count = result [0][0]
     load_times = f"Page has been loaded {str(count)} times baby!"
-    create_user = f"Sign in here! "
+    #create_user = f"Sign in here! {redirect("/register")}"
     return render_template("index.html", message=load_times, items=words)
 
-@app.route("/register")
+@app.route("/register", methods=["POST"])
 def register():
     return render_template("register.html")
 
-@app.route("/create", method=["POST"])
+@app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
     password1 = request.form["password"]

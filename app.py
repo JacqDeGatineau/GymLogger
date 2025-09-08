@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 
@@ -18,6 +18,26 @@ def index():
     load_times = f"Page has been loaded {str(count)} times baby!"
     #create_user = f"Sign in here! {redirect("/register")}"
     return render_template("index.html", message=load_times, items=words)
+
+@app.route("/login", methods=["POST"])
+def login():
+    print(request.form)
+    username = request.form["username"]
+    password = request.form["password"]
+
+    sql = "SELECT password_hash FROM users WHERE username = ?"
+    password_hash = db.query(sql, [username])[0][0]
+
+    if check_password_hash(password_hash, password):
+        session["username"] = username
+        return redirect("/")
+    else:
+        return "Blabberin' blatherskite! Wrong username or password!"
+
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
 
 @app.route("/register", methods=["POST"])
 def register():

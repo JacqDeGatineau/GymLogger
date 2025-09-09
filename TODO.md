@@ -9,8 +9,9 @@ Note(s) to self
 Features
 
 Phase 1:
-- SQLite database
-- Basic Authentication
+- ~~SQLite database~~
+- ~~Basic Authentication~~
+- ~~SQL schema~~
 - Exercise CRUD
 - Simple workout logging
 

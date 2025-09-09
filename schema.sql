@@ -4,6 +4,17 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT
 );
 
+CREATE TABLE IF NOT EXISTS muscle_groups (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE CHECK (name IN ('Back', 'Arms', 'Chest', 'Shoulders', 'Core', 'Legs', 'Other'))
+);
+
+CREATE TABLE IF NOT EXISTS exercise_muscle_groups (
+    exercise_id INTEGER REFERENCES exercises(id),
+    muscle_group_id INTEGER REFERENCES muscle_groups(id),
+    PRIMARY KEY (exercise_id, muscle_group_id)
+);
+
 CREATE TABLE IF NOT EXISTS exercises (
     id INTEGER PRIMARY KEY,
     title TEXT UNIQUE,

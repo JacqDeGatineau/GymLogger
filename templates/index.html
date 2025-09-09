@@ -9,23 +9,21 @@
     {%if session.username%}
     <img src="/static/smile.jpg" />
     <p>Welcome {{ session.username }} !</p>
-    <p>{{ message }}</p>
-    <ul>
-        {% for item in items %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
+    <p>
+        <a href="/session">Begin a workout</a>
+    </p>
     <p>
         <a href="/logout">Log out!</a>
     </p>
     {% else %}
     <form action="/register" method="post">
-        Sign-in here you crazy animal!
+        Sign-in here you crazy animal! <br />
         <input type="submit" value="OK boss!" />
     </form>
     <form action="/login" method="post">
         <p>
         Log-in here you wild thing! <br />
+        <br />
         Username: <br />
         <input type="text" name="username" />
         </p>

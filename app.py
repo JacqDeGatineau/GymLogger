@@ -11,13 +11,7 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    words = ["jazzy", "sensation", "can you feel it?"]
-    db.execute("INSERT INTO visits (visited_at) VALUES (datetime('now'))")
-    result = db.query("SELECT COUNT(*) FROM visits")
-    count = result [0][0]
-    load_times = f"Page has been loaded {str(count)} times baby!"
-    #create_user = f"Sign in here! {redirect("/register")}"
-    return render_template("index.html", message=load_times, items=words)
+    return render_template("index.html")
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -71,12 +65,6 @@ def result():
     reps = request.form["reps"]
     return render_template("result.html", exercise=exercise, sets=sets, reps=reps)
 
-@app.route("/page1")
-def page1():
-    content = ""
-    for i in range(1, 100):
-        content += str(i) + " "
-    return content
 
 @app.route("/page/<int:page_id>")
 def page2(page_id):

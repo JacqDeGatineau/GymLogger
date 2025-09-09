@@ -54,6 +54,11 @@ def create():
     
     return f"Thundering tornadoes! User {username} has been created!"
 
+@app.route("/session")
+def session():
+    exercises = gym.get_exercises()
+    return render_template("session.html", exercises=exercises)
+
 @app.route("/form")
 def form():
     return render_template("form.html")

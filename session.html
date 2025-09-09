@@ -1,0 +1,19 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Etusivu</title>
+</head>
+
+<body>
+    {% for ex in exercises %}
+    <p>
+        <a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a>
+        <br />
+        {{ exercise.title }} 
+    </p>
+    <hr />
+    {% endfor %}
+</body>

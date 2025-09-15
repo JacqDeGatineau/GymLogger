@@ -2,7 +2,7 @@ import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
-import config
+import config, gym
 import db
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def create():
     password1 = request.form["password"]
     password2 = request.form["repeat password"]
     if password1 != password2:
-        return "Quivering ectoplasm! Passwords, don't match!"
+        return "Quivering ectoplasm! Passwords don't match!"
     password_hash = generate_password_hash(password1)
 
     try:
@@ -55,9 +55,19 @@ def create():
     return f"Thundering tornadoes! User {username} has been created!"
 
 @app.route("/session")
-def session():
+def select_exercises():
+    #username = session["username"]
     exercises = gym.get_exercises()
     return render_template("session.html", exercises=exercises)
+
+@app.route("/create-workout", methods=["POST"])
+def workout():
+    selected_exercises = request.form.getlist('exercises')
+    print(selected_exercises)
+    exercises = gym.get_exercises_by_ids(selected_exercises)
+    print(exercises)
+    return render_template("result.html", exercises=exercises)
+
 
 @app.route("/form")
 def form():

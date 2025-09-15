@@ -6,7 +6,17 @@
     </head>
     
     <body>
-        <p>Next exercise: {{ exercise }} </p>
-        <p>{{ sets }} sets and {{ reps }} reps</p>
+        <form action="/create-workout" method="POST">
+        {% for exercise in exercises %}
+            <p>{{ exercise.title }}: 
+                <input type="number" name="sets[{{ exercise.id }}]" min="1" value="3"/> Sets
+                <input type="number" name="reps[{{ exercise.id }}]" min="1" value="5"/> reps
+            </p>
+            <input type="hidden" name="exercises" value="{{ exercise.id }}"/>
+        <hr />
+        {% endfor %}
+        <input type="submit" value="End workout!" />
+        </form>
+
     </body>
 </html>

@@ -2,7 +2,6 @@ import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
 import config, gym
 import db
 
@@ -20,12 +19,18 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
 
+    #we need to find the user_id for the username and use that through the session
+    #user_id = users.check_login(username, password)
+
     sql = "SELECT password_hash FROM users WHERE username = ?"
     password_hash = db.query(sql, [username])[0][0]
 
     if check_password_hash(password_hash, password):
         session["username"] = username
         return redirect("/")
+        """if user_id:
+                session["user_id"] = user_id
+                return redirect("/")"""
     else:
         return "Blabberin' blatherskite! Wrong username or password!"
 

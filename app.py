@@ -16,23 +16,27 @@ def index():
 @app.route("/login", methods=["POST"])
 def login():
     print(request.form)
-    username = request.form["username"]
-    password = request.form["password"]
+    username = request.form.get("username")
+    password = request.form.get("password")
 
-    #we need to find the user_id for the username and use that through the session
-    #user_id = users.check_login(username, password)
+    # Check if username and password are provided
+    if not username or not password:
+        return "Username and password are required!", 400
 
-    sql = "SELECT password_hash FROM users WHERE username = ?"
-    password_hash = db.query(sql, [username])[0][0]
+    # Query for the user based on the username
+    sql = "SELECT user_id, password_hash FROM users WHERE username = ?"
+    result = db.query(sql, [username])
 
-    if check_password_hash(password_hash, password):
-        session["username"] = username
-        return redirect("/")
-        """if user_id:
-                session["user_id"] = user_id
-                return redirect("/")"""
-    else:
-        return "Blabberin' blatherskite! Wrong username or password!"
+    # Check if the user exists
+    if result:
+        user_id, password_hash = result[0]
+        # Verify the password
+        if check_password_hash(password_hash, password):
+            session["user_id"] = user_id
+            session["username"] = username
+            return redirect("/")
+
+    return "Blabberin' blatherskite! Wrong username or password!", 401
 
 @app.route("/logout")
 def logout():
@@ -83,12 +87,22 @@ def workout():
 @app.route("/result", methods=["POST"])
 def result():
     require_login()
+    user_id = session["user_id"]
+
     exercise = request.form.get("exercise")
     sets = request.form["sets"]
     reps = request.form["reps"]
     weight = request.form["weight"]
+
+    exercise_id = gym.get_exercises_by_ids(exercise)
     #I need to bind the user_id into the session
-    session_id = gym.add_session(user_id, sets, reps, weight)
+    session_id = gym.add_session(user_id, sets, reps, weight, exercise_id)
     return render_template("result.html", exercise=exercise, sets=sets, reps=reps, weight=weight)
+
+@app.route("/end_workout", methods=["POST"])
+def end_workout():
+    require_login()
+    
+    return redirect("/")
 
 

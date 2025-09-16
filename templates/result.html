@@ -16,8 +16,12 @@
             <input type="hidden" name="exercises" value="{{ exercise.id }}"/>
         <hr />
         {% endfor %}
-        <input type="submit" value="End workout!" />
-        </form>
+            <form action="/end_workout" method="POST">
+                <input type="submit" value="End workout!" />
+            </form>
 
+        <form/>
+        
+        
     </body>
 </html>

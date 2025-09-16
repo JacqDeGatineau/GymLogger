@@ -21,15 +21,15 @@ def get_exercises_by_ids(selected_exercises):
     
     return db.query(sql, selected_exercises)
 
-def add_session(user_id, sets, reps, weight,):
-    sql = "INSERT INTO session (user_id, time) VALUES (?, datetime('now'),)"
+def add_session(user_id, sets, reps, weight, exercise_id):
+    sql = "INSERT INTO session (user_id, time) VALUES (?, datetime('now'))"
     db.execute(sql, [user_id])
     session_id = db.last_insert_id() #Add this function to db.py
-    add_workout(sets, reps, weight, session_id)
+    add_workout(sets, reps, weight, session_id, exercise_id)
     return session_id
     
-def add_workout(sets, reps, weight, session_id):
+def add_workout(sets, reps, weight, session_id, exercise_id):
     #where do we get exercise_id?
-    sql = """INSERT INTO workout (sets, reps, weight, exercise_id)
-             VALUES (?, ?, ?, ?)"""
+    sql = """INSERT INTO workout (sets, reps, weight, exercise_id, session_id)
+             VALUES (?, ?, ?, ?, ?)"""
     db.execute(sql, [(sets, reps, weight, exercise_id, session_id)])

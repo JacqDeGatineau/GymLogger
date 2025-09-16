@@ -1,9 +1,12 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, g, url_for, Blueprint, abort
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 import config, gym
 import db
+
+bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 app = Flask(__name__)
 #for development only! Change for production!
@@ -54,14 +57,41 @@ def create():
     
     return f"Thundering tornadoes! User {username} has been created!"
 
+def require_login():
+    if "username" not in session:
+        abort(403)
+
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get("username")
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db.execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route("/session")
+
 def select_exercises():
+    require_login()
     #username = session["username"]
     exercises = gym.get_exercises()
     return render_template("session.html", exercises=exercises)
 
 @app.route("/create-workout", methods=["POST"])
 def workout():
+    require_login()
     selected_exercises = request.form.getlist('exercises')
     print(selected_exercises)
     exercises = gym.get_exercises_by_ids(selected_exercises)
@@ -75,6 +105,7 @@ def form():
 
 @app.route("/result", methods=["POST"])
 def result():
+    require_login()
     exercise = request.form.get("exercise")
     sets = request.form["sets"]
     reps = request.form["reps"]

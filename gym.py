@@ -1,4 +1,6 @@
 import db
+import sqlite3
+from flask import g
 
 def get_exercises():
     sql = """SELECT t.id, t.title, t.link
@@ -18,3 +20,9 @@ def get_exercises_by_ids(selected_exercises):
                WHERE t.id IN ({placeholders})"""
     
     return db.query(sql, selected_exercises)
+
+def get_db():
+    if "db" not in g:
+        g.db = sqlite3.connect("database.db")
+        g.db.row_factory = sqlite3.Row  # This allows you to access columns by name
+    return g.db

@@ -21,8 +21,15 @@ def get_exercises_by_ids(selected_exercises):
     
     return db.query(sql, selected_exercises)
 
-def get_db():
-    if "db" not in g:
-        g.db = sqlite3.connect("database.db")
-        g.db.row_factory = sqlite3.Row  # This allows you to access columns by name
-    return g.db
+def add_session(user_id, sets, reps, weight,):
+    sql = "INSERT INTO session (user_id, time) VALUES (?, datetime('now'),)"
+    db.execute(sql, [user_id])
+    session_id = db.last_insert_id() #Add this function to db.py
+    add_workout(sets, reps, weight, session_id)
+    return session_id
+    
+def add_workout(sets, reps, weight, session_id):
+    #where do we get exercise_id?
+    sql = """INSERT INTO workout (sets, reps, weight, exercise_id)
+             VALUES (?, ?, ?, ?)"""
+    db.execute(sql, [(sets, reps, weight, exercise_id, session_id)])

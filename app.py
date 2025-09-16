@@ -1,12 +1,10 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session, g, url_for, Blueprint, abort
+from flask import redirect, render_template, request, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import config, gym
 import db
-
-bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 app = Flask(__name__)
 #for development only! Change for production!
@@ -61,28 +59,7 @@ def require_login():
     if "username" not in session:
         abort(403)
 
-
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get("username")
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_db.execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if g.user is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
-
 @app.route("/session")
-
 def select_exercises():
     require_login()
     #username = session["username"]
@@ -98,21 +75,15 @@ def workout():
     print(exercises)
     return render_template("result.html", exercises=exercises)
 
-
-@app.route("/form")
-def form():
-    return render_template("form.html")
-
 @app.route("/result", methods=["POST"])
 def result():
     require_login()
     exercise = request.form.get("exercise")
     sets = request.form["sets"]
     reps = request.form["reps"]
-    return render_template("result.html", exercise=exercise, sets=sets, reps=reps)
+    weight = request.form["weight"]
+    #I need to bind the user_id into the session
+    session_id = gym.add_session(user_id, sets, reps, weight)
+    return render_template("result.html", exercise=exercise, sets=sets, reps=reps, weight=weight)
 
-
-@app.route("/page/<int:page_id>")
-def page2(page_id):
-    return "Tämä on sivu " + str(page_id)
 

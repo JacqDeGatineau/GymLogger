@@ -8,18 +8,25 @@
     <body>
         <form action="/create" method="post">
             <p>
-                Username: <br />
-                <input type="text" name="username" />
+                Username, max. 16 characters: <br />
+                <input type="text" name="username" required />
             </p>
             <p>
                 Password: <br />
-                <input type="text" name="password" />
+                <input type="password" name="password" required />
             </p>
             <p>
                 Password again: <br />
-                <input type="text" name="repeat password" />
+                <input type="password" name="repeat password" required />
             </p>
-            <input type="submit" value="Create user" />
+            <input type="submit" value="Create user" /> 
         </form>
+
+        {% for message in get_flashed_messages() %}
+        <p>
+            <b>{{ message }}</b>
+        </p>
+        {% endfor %}
+
     </body>
 </html>

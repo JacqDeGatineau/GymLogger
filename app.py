@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session, abort
+from flask import redirect, render_template, request, session, abort, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import config, gym
 import db
@@ -24,7 +24,7 @@ def login():
         return "Username and password are required!", 400
 
     # Query for the user based on the username
-    sql = "SELECT user_id, password_hash FROM users WHERE username = ?"
+    sql = "SELECT id, password_hash FROM users WHERE username = ?"
     result = db.query(sql, [username])
 
     # Check if the user exists
@@ -47,22 +47,34 @@ def logout():
 def register():
     return render_template("register.html")
 
-@app.route("/create", methods=["POST"])
+@app.route("/create", methods=["GET", "POST"])
 def create():
-    username = request.form["username"]
-    password1 = request.form["password"]
-    password2 = request.form["repeat password"]
-    if password1 != password2:
-        return "Quivering ectoplasm! Passwords don't match!"
-    password_hash = generate_password_hash(password1)
+    if request.method == "POST":
+        username = request.form["username"]
+        if not username or len(username) > 16:
+            flash("Billions of bilious blue blistering barnacles! Username is too long!")
+            return redirect("/create")
+        password1 = request.form["password"]
+        password2 = request.form["repeat password"]
 
-    try:
-        sql = "INSERT INTO users (username, password_hash)VALUES (?, ?)"
-        db.execute(sql, [username, password_hash])
-    except sqlite3.IntegrityError:
-        return "Gibbering anthropoids! The username has been taken!" 
+        if password1 != password2:
+            flash("Quivering ectoplasm! Passwords don't match!")
+            return redirect("/create")
+        
+        password_hash = generate_password_hash(password1)
+
+        try:
+            sql = "INSERT INTO users (username, password_hash)VALUES (?, ?)"
+            db.execute(sql, [username, password_hash])
+            flash(f"Thundering tornadoes! User {username} has been created!")
+            return redirect("/")
+        except sqlite3.IntegrityError:
+            flash("Gibbering anthropoids! The username has been taken!")
+            return redirect("/create")
     
-    return f"Thundering tornadoes! User {username} has been created!"
+    return render_template("register.html")
+    
+    
 
 def require_login():
     if "username" not in session:

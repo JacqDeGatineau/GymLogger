@@ -98,6 +98,32 @@ def select_exercises():
     exercises = gym.get_exercises()
     return render_template("session.html", exercises=exercises)
 
+def filter_exercises(query: str):
+    exercises = gym.get_exercises()
+    q = (query or "").strip().lower()
+    if not q:
+        return exercises
+    return [e for e in exercises if q in e["title"].lower()]
+
+@app.get("/search")
+def search():
+    query = request.args.get("query", "")
+    # Selected IDs are propagated via GET so we can preserve them between searches
+    selected_ids = set(request.args.getlist("selected"))
+    exercises = filter_exercises(query)
+    return render_template(
+        "session.html",
+        query=query,
+        exercises=exercises,
+        selected_ids=selected_ids
+    )
+
+"""@app.route("/search")
+def search():
+    query = request.args.get("query")
+    results = gym.search(query) if query else []
+    return render_template("session.html", query=query, results=results)"""
+
 @app.route("/create-workout", methods=["POST"])
 def workout():
     require_login()

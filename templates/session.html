@@ -1,28 +1,58 @@
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>workout session</title>
+    <title>Select exercises</title>
 </head>
 
 <body>
     <h2>Select exercises</h2>
-    <form action="/create-workout" method="POST">
-    {% for exercise in exercises %}
+
+      <form action="/search" method="get">
     <p>
-        <a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a>
-        <br />
-        <a href="{{ exercise.link }}">Guide</a>
-        <br />
-        <input type="checkbox" id="exercise_{{ exercise.id }}" name="exercises" value="{{ exercise.id }}">
-        <label for="exercise_{{ exercise.id }}">{{ exercise.title }}</label> 
+      Search:
+      <input type="text" name="query" value="{{ query or '' }}" />
     </p>
-    <hr />
+
+    {% for sid in selected_ids %}
+      <input type="hidden" name="selected" value="{{ sid }}">
     {% endfor %}
-    <p> 
-        <input type="submit" value="Begin workout!">
+
+    <input type="submit" value="Search" />
+  </form>
+
+  {% if query %}
+    <hr />
+    <h2>Results for "{{ query }}"</h2>
+    {% if exercises|length == 0 %}
+      <p>No exercises found.</p>
+    {% endif %}
+  {% else %}
+    <hr />
+    <h2>All Exercises</h2>
+  {% endif %}
+
+  <!-- Create workout form (POST). Checkboxes reflect current filter and selected state -->
+  <form action="/create-workout" method="POST">
+    {% for exercise in exercises %}
+      <p>
+        <a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a><br />
+        <a href="{{ exercise.link }}" target="_blank" rel="noopener">Guide</a><br />
+
+        <input
+          type="checkbox"
+          id="exercise_{{ exercise.id }}"
+          name="exercises"
+          value="{{ exercise.id }}"
+          {% if exercise.id in selected_ids %}checked{% endif %}
+        />
+        <label for="exercise_{{ exercise.id }}">{{ exercise.title }}</label>
+      </p>
+      <hr />
+    {% endfor %}
+
+    <p>
+      <input type="submit" value="Begin workout!">
     </p>
-    </form>
+  </form>
 </body>
+</html>

@@ -16,6 +16,15 @@ def get_sessions():
              ORDER BY t.time DESC"""
     return db.query(sql)
 
+def search(query):
+    sql = """SELECT e.title,
+                    u.username
+             FROM exercises e, users u
+             WHERE u.id = e.user_id AND
+                   e.title LIKE ?
+             ORDER BY e.title DESC"""
+    return db.query(sql, ["%" + query + "%"])
+
 def get_exercises_by_ids(selected_exercises):
     if not selected_exercises:
         return []

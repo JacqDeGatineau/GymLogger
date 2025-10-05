@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS workout (
     sets INTEGER,
     reps INTEGER,
     weight REAL,
-    exercise_id INTEGER REFERENCES exercises
+    exercise_id INTEGER REFERENCES exercises,
+    session_id INTEGER REFERENCES session
 );
 
 CREATE TABLE IF NOT EXISTS session (

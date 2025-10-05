@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>History</title>
+</head>
+
+<body>
+    <h1>Your workout history</h1>
+
+    {% if sessions %}
+    <ul>
+        {% for session in sessions %}
+            <li>
+                <strong>Date & Time:</strong> {{ session.time }} <br>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No workout sessions found.</p>
+    {% endif %}   
+
+    <a href="/">
+        <button>Home</button>
+    </a>
+</body>
+</html>

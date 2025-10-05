@@ -7,19 +7,26 @@
 <body>
     <h1>Get strong!</h1>
     {%if session.username%}
-    <img src="/static/smile.jpg" />
-    <p>Welcome {{ session.username }} !</p>
-    <p>
-        <a href="/session">Begin a workout</a>
-    </p>
-    <p>
-        <a href="/logout">Log out!</a>
-    </p>
+        <img src="/static/smile.jpg" />
+        <p>Welcome {{ session.username }}!</p>
+        <p>
+            <a href="/session">Begin a workout</a>
+        </p>
+
+        <p>
+            <a href="/history">Workout history</a>
+        </p>
+
+        <p>
+            <a href="/logout">Log out!</a>
+        </p>
     {% else %}
+
     <form action="/register" method="post">
         Sign-in here you crazy animal! <br />
         <input type="submit" value="OK boss!" />
     </form>
+
     <form action="/login" method="post">
         <p>
         Log-in here you wild thing! <br />

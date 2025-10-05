@@ -2,6 +2,7 @@ import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session, abort, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
 import config, gym
 import db
 
@@ -15,7 +16,7 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    print(request.form)
+    #print(request.form)
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -33,6 +34,7 @@ def login():
         # Verify the password
         if check_password_hash(password_hash, password):
             session["user_id"] = user_id
+            session["csrf_token"] = secrets.token_hex(16)
             session["username"] = username
             return redirect("/")
 
@@ -73,12 +75,21 @@ def create():
             return redirect("/create")
     
     return render_template("register.html")
-    
-    
 
 def require_login():
     if "username" not in session:
         abort(403)
+    
+def check_csrf():
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
+
+@app.route("/history", methods=["GET", "POST"])
+def show_history():
+    require_login()
+
+    sessions = gym.get_sessions()
+    return render_template("history.html", sessions=sessions)
 
 @app.route("/session")
 def select_exercises():
@@ -90,31 +101,46 @@ def select_exercises():
 @app.route("/create-workout", methods=["POST"])
 def workout():
     require_login()
+    user_id = session["user_id"]
     selected_exercises = request.form.getlist('exercises')
-    print(selected_exercises)
+    #print(selected_exercises)
     exercises = gym.get_exercises_by_ids(selected_exercises)
-    print(exercises)
+    #print(exercises)
     return render_template("result.html", exercises=exercises)
 
 @app.route("/result", methods=["POST"])
 def result():
     require_login()
+    check_csrf()
     user_id = session["user_id"]
 
-    exercise = request.form.get("exercise")
-    sets = request.form["sets"]
-    reps = request.form["reps"]
-    weight = request.form["weight"]
+    exercises_data = request.form.getlist("exercise")
 
-    exercise_id = gym.get_exercises_by_ids(exercise)
-    #I need to bind the user_id into the session
-    session_id = gym.add_session(user_id, sets, reps, weight, exercise_id)
-    return render_template("result.html", exercise=exercise, sets=sets, reps=reps, weight=weight)
+    try:
+        session_id = gym.add_session(user_id)
+
+        for exercise in exercises_data:
+            sets = request.form.get("sets[{}]".format(exercise))
+            reps = request.form.get("reps[{}]".format(exercise))
+            weight = request.form.get("weight[{}]".format(exercise))
+
+            exercise_id = gym.get_exercise_by_id(exercise)
+            print(exercise_id)
+            if exercise_id is None:
+                return "Exercise not found", 404
+            
+            gym.add_workout(sets, reps, weight, session_id, exercise_id)
+        print("Session id", session_id)
+    except Exception as e:
+        print("Error adding session or workouts:", e)
+        return "An error occurred", 500
+
+    return redirect("/")
 
 @app.route("/end_workout", methods=["POST"])
 def end_workout():
     require_login()
-    
+    user_id = session["user_id"]
     return redirect("/")
 
 

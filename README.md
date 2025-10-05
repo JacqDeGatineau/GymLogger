@@ -20,7 +20,12 @@ Luo tietokannan taulut ja lisää alkutiedot:
 
 $ sqlite3 database.db < schema.sql
 
+Lisää exercise.json tiedostosta harjoitteet tietokannan tauluun exercises:
+$ python3 update_exercise.py
+
 Voit käynnistää sovelluksen näin:
 
 $ flask run
+
+Tämän jälkeen luo käyttäjätunnus ja kirjaudu sisään. Begin workout voit hakea ja valita harjoitteita treeniä varten (harjoitteita tulee lisää tulevaisuudessa) ja aloittaa treenin. Treenin aikana voit merkitä kuinka monta toistoa ja kuinka monta settiä mitäkin liikettä, sekä valita vastuksen kilogrammoina. End workout lopettaa treenin ja lisää treenin tietokantaan. Workout history näyttää menneet treenit.
 

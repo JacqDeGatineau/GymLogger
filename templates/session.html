@@ -7,7 +7,7 @@
 <body>
     <h2>Select exercises</h2>
 
-      <form action="/search" method="get">
+    <form action="/search" method="get">
     <p>
       Search:
       <input type="text" name="query" value="{{ query or '' }}" />
@@ -18,7 +18,11 @@
     {% endfor %}
 
     <input type="submit" value="Search" />
-  </form>
+    </form>
+
+    <p>
+      <input type="submit" value="Begin workout!" form="create-workout-form">
+    </p>
 
   {% if query %}
     <hr />
@@ -31,8 +35,7 @@
     <h2>All Exercises</h2>
   {% endif %}
 
-  <!-- Create workout form (POST). Checkboxes reflect current filter and selected state -->
-  <form action="/create-workout" method="POST">
+  <form action="/create-workout" method="POST" id="create-workout-form">
     {% for exercise in exercises %}
       <p>
         <a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a><br />

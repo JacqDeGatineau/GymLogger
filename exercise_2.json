@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "title": "Bench Press",
+      "link": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
+      "muscle_group": [
+        "Back", "Arms", "Chest", "Shoulders"
+      ],
+      "resistance": "Barbell"
+    },
+    {
+        "id": 2,
+        "title": "Deadlift",
+        "link": "https://www.youtube.com/watch?v=m__vJ_Fqsy4",
+        "muscle_group": [
+          "Back", "Core", "Legs"
+        ],
+        "resistance": "Barbell"
+    },
+    {
+        "id": 3,
+        "title": "Back Squat",
+        "link": "https://www.youtube.com/watch?v=yV6sKV8nMq0",
+        "muscle_group": [
+          "Legs", "Core"
+        ],
+        "resistance": "Barbell"
+    },
+    {
+        "id": 4,
+        "title": "Bentover Row",
+        "link": "https://www.youtube.com/watch?v=-lXS-v6BNgg",
+        "muscle_group": [
+          "Back", "Arms", "Core"
+        ],
+        "resistance": "Barbell"
+    }
+]

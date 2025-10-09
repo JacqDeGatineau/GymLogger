@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS exercises (
     user_id INTEGER REFERENCES users,
     link  TEXT,
     muscle_group TEXT CHECK (muscle_group IN ('Back', 'Arms', 'Chest', 'Shoulders', 'Core', 'Legs', 'Other')),
-    resistance TEXT CHECK (resistance IN ('Barbell', 'Machine', 'Dumbbell', 'Bodyweight', 'Other'))
+    resistance TEXT CHECK (resistance IN ('Barbell', 'Machine', 'Dumbbell', 'Kettlebell', 'Cable', 'Bodyweight', 'Other'))
 );
 
 CREATE TABLE IF NOT EXISTS workout (

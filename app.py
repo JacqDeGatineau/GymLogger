@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session, abort, flash
+from flask import redirect, render_template, request, session, abort, flash, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import config, gym
@@ -52,12 +52,12 @@ def register():
 @app.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
-        username = request.form["username"]
+        username = request.form.get("username", "").strip()
         if not username or len(username) > 16:
             flash("Billions of bilious blue blistering barnacles! Username is too long!")
             return redirect("/create")
-        password1 = request.form["password"]
-        password2 = request.form["repeat password"]
+        password1 = request.form.get("password", "")
+        password2 = request.form.get("repeat password", "")
 
         if password1 != password2:
             flash("Quivering ectoplasm! Passwords don't match!")
@@ -81,7 +81,9 @@ def require_login():
         abort(403)
     
 def check_csrf():
-    if request.form["csrf_token"] != session["csrf_token"]:
+    csrf_token = request.form.get("csrf_token")
+    #if request.form["csrf_token"] != session["csrf_token"]:
+    if not csrf_token or csrf_token != session.get("csrf_token"):
         abort(403)
 
 @app.route("/history", methods=["GET", "POST"])
@@ -125,37 +127,47 @@ def search():
     return render_template("session.html", query=query, results=results)"""
 
 @app.route("/create-workout", methods=["POST"])
-def workout():
+def create_workout():
     require_login()
     user_id = session["user_id"]
     selected_exercises = request.form.getlist('exercises')
     #print(selected_exercises)
     exercises = gym.get_exercises_by_ids(selected_exercises)
     #print(exercises)
-    return render_template("result.html", exercises=exercises)
+    return render_template("workout.html", exercises=exercises,  set_count=1)
 
-@app.route("/result", methods=["POST"])
+@app.route("/workout", methods=["POST"])
 def result():
     require_login()
+    set_count = 1
+
+    if 'add_set' in request.form:
+        set_count = int(request.form.get('set_count',1)) + 1
+        # Get the exercises from the form to preserve them
+        selected_exercises = request.form.getlist('exercise_ids[]')
+        exercises = gym.get_exercises_by_ids(selected_exercises)
+        return render_template("workout.html", exercises=exercises, set_count=set_count)
+    
     check_csrf()
     user_id = session["user_id"]
 
-    exercises_data = request.form.getlist("exercise")
-
+    exercises_data = request.form.getlist("exercise_ids[]")
     try:
         session_id = gym.add_session(user_id)
 
         for exercise in exercises_data:
-            sets = request.form.get("sets[{}]".format(exercise))
-            reps = request.form.get("reps[{}]".format(exercise))
-            weight = request.form.get("weight[{}]".format(exercise))
+            reps = request.form.getlist("reps[{}][]".format(exercise))
+            weight = request.form.getlist("weight[{}][]".format(exercise))
 
             exercise_id = gym.get_exercise_by_id(exercise)
             print(exercise_id)
             if exercise_id is None:
                 return "Exercise not found", 404
             
-            gym.add_workout(sets, reps, weight, session_id, exercise_id)
+            # Process each set for this exercise
+            for i in range(len(reps)):
+                gym.add_workout(1, reps[i], weight[i], session_id, exercise_id)
+
         print("Session id", session_id)
     except Exception as e:
         print("Error adding session or workouts:", e)

@@ -1,38 +1,702 @@
 [
-    {
-      "id": 1,
-      "title": "Bench Press",
-      "link": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
-      "muscle_group": [
-        "Back", "Arms", "Chest", "Shoulders"
-      ],
-      "resistance": "Barbell"
-    },
-    {
-        "id": 2,
-        "title": "Deadlift",
-        "link": "https://www.youtube.com/watch?v=m__vJ_Fqsy4",
-        "muscle_group": [
-          "Back", "Core", "Legs"
-        ],
-        "resistance": "Barbell"
-    },
-    {
-        "id": 3,
-        "title": "Back Squat",
-        "link": "https://www.youtube.com/watch?v=yV6sKV8nMq0",
-        "muscle_group": [
-          "Legs", "Core"
-        ],
-        "resistance": "Barbell"
-    },
-    {
-        "id": 4,
-        "title": "Bentover Row",
-        "link": "https://www.youtube.com/watch?v=-lXS-v6BNgg",
-        "muscle_group": [
-          "Back", "Arms", "Core"
-        ],
-        "resistance": "Barbell"
-    }
+  {
+    "id": 1,
+    "title": "Bench Press",
+    "link": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
+    "muscle_group": ["Back", "Arms", "Chest", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 2,
+    "title": "Deadlift",
+    "link": "https://www.youtube.com/watch?v=m__vJ_Fqsy4",
+    "muscle_group": ["Back", "Core", "Legs"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 3,
+    "title": "Back Squat",
+    "link": "https://www.youtube.com/watch?v=yV6sKV8nMq0",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 4,
+    "title": "Bentover Row",
+    "link": "https://www.youtube.com/watch?v=-lXS-v6BNgg",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 5,
+    "title": "Overhead Press",
+    "link": "https://www.youtube.com/watch?v=qEwKCR5JCog",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 6,
+    "title": "Incline Bench Press",
+    "link": "https://www.youtube.com/watch?v=SrqOu55lrYU",
+    "muscle_group": ["Chest", "Shoulders", "Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 7,
+    "title": "Front Squat",
+    "link": "https://www.youtube.com/watch?v=Q_DX5wVZ8ZQ",
+    "muscle_group": ["Legs", "Core", "Back"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 8,
+    "title": "Romanian Deadlift",
+    "link": "https://www.youtube.com/watch?v=2SHsk9AzdjA",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 9,
+    "title": "Sumo Deadlift",
+    "link": "https://www.youtube.com/watch?v=3IlJRsE2Qnc",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 10,
+    "title": "Pause Squat",
+    "link": "https://www.youtube.com/watch?v=c7q3UM0Tt0Y",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 11,
+    "title": "Close-Grip Bench Press",
+    "link": "https://www.youtube.com/watch?v=X0GFs6Vja6k",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 12,
+    "title": "Spoto Press",
+    "link": "https://www.youtube.com/watch?v=CCkP2Q9n6cw",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 13,
+    "title": "Board Press",
+    "link": "https://www.youtube.com/watch?v=L2cQnE_gm60",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 14,
+    "title": "T-Bar Row",
+    "link": "https://www.youtube.com/watch?v=vGJj3Mzknew",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 15,
+    "title": "Pendlay Row",
+    "link": "https://www.youtube.com/watch?v=5yWaNOvgFCM",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 16,
+    "title": "Snatch-Grip Deadlift",
+    "link": "https://www.youtube.com/watch?v=H1VQPPYU8yU",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 17,
+    "title": "Zercher Squat",
+    "link": "https://www.youtube.com/watch?v=mjhYH2bQIhQ",
+    "muscle_group": ["Legs", "Core", "Back"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 18,
+    "title": "Good Morning",
+    "link": "https://www.youtube.com/watch?v=qZPXWhyG1SM",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 19,
+    "title": "Hip Thrust",
+    "link": "https://www.youtube.com/watch?v=LM8XHLYJoYs",
+    "muscle_group": ["Legs", "Core", "Back"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 20,
+    "title": "Barbell Lunge",
+    "link": "https://www.youtube.com/watch?v=MLB9WnR8nFQ",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 21,
+    "title": "Bulgarian Split Squat",
+    "link": "https://www.youtube.com/watch?v=2C-uNgKwPLE",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 22,
+    "title": "Dumbbell Bench Press",
+    "link": "https://www.youtube.com/watch?v=VmB1G1K7v94",
+    "muscle_group": ["Chest", "Shoulders", "Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 23,
+    "title": "Dumbbell Incline Press",
+    "link": "https://www.youtube.com/watch?v=8iPEnn-ltC8",
+    "muscle_group": ["Chest", "Shoulders", "Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 24,
+    "title": "Dumbbell Row",
+    "link": "https://www.youtube.com/watch?v=roCP6wCdp6k",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 25,
+    "title": "Dumbbell Shoulder Press",
+    "link": "https://www.youtube.com/watch?v=B-aVuyhvLHU",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 26,
+    "title": "Dumbbell Fly",
+    "link": "https://www.youtube.com/watch?v=eozdVDA78K0",
+    "muscle_group": ["Chest"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 27,
+    "title": "Dumbbell Pullover",
+    "link": "https://www.youtube.com/watch?v=RyJfA0g4Sng",
+    "muscle_group": ["Chest", "Back"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 28,
+    "title": "Dumbbell Lateral Raise",
+    "link": "https://www.youtube.com/watch?v=3VcKaXpzqRo",
+    "muscle_group": ["Shoulders"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 29,
+    "title": "Dumbbell Front Raise",
+    "link": "https://www.youtube.com/watch?v=-t7fuZ0KhDA",
+    "muscle_group": ["Shoulders"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 30,
+    "title": "Dumbbell Rear Delt Fly",
+    "link": "https://www.youtube.com/watch?v=0hr3c9wLlw4",
+    "muscle_group": ["Shoulders", "Back"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 31,
+    "title": "Hammer Curl",
+    "link": "https://www.youtube.com/watch?v=zC3nLlEvin4",
+    "muscle_group": ["Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 32,
+    "title": "Alternating Dumbbell Curl",
+    "link": "https://www.youtube.com/watch?v=av7-8igSXTs",
+    "muscle_group": ["Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 33,
+    "title": "Dumbbell Skull Crusher",
+    "link": "https://www.youtube.com/watch?v=ir5PsbniVw4",
+    "muscle_group": ["Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 34,
+    "title": "Dumbbell Row Meadows",
+    "link": "https://www.youtube.com/watch?v=6i2gGJ9iZkI",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 35,
+    "title": "Dumbbell RDL",
+    "link": "https://www.youtube.com/watch?v=Ykh7nJp0JrQ",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 36,
+    "title": "Dumbbell Goblet Squat",
+    "link": "https://www.youtube.com/watch?v=6xw9MFgG7hQ",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 37,
+    "title": "Dumbbell Lunge",
+    "link": "https://www.youtube.com/watch?v=Z2n58m2i4jg",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 38,
+    "title": "Dumbbell Step-Up",
+    "link": "https://www.youtube.com/watch?v=dQqApCGd6-E",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 39,
+    "title": "Dumbbell Suitcase Carry",
+    "link": "https://www.youtube.com/watch?v=JvQ6Qcpk8fQ",
+    "muscle_group": ["Core", "Back"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 40,
+    "title": "Dumbbell Farmers Walk",
+    "link": "https://www.youtube.com/watch?v=0q1sxR-yJQ0",
+    "muscle_group": ["Core", "Back", "Legs"],
+    "resistance": "Dumbbell"
+  },
+  {
+    "id": 41,
+    "title": "Pull-Up",
+    "link": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 42,
+    "title": "Chin-Up",
+    "link": "https://www.youtube.com/watch?v=brhRXlOhsAM",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 43,
+    "title": "Dips",
+    "link": "https://www.youtube.com/watch?v=2z8JmcrW-As",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 44,
+    "title": "Push-Up",
+    "link": "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+    "muscle_group": ["Chest", "Arms", "Shoulders", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 45,
+    "title": "Handstand Push-Up",
+    "link": "https://www.youtube.com/watch?v=0V2IQ-bVDM0",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 46,
+    "title": "Nordic Curl",
+    "link": "https://www.youtube.com/watch?v=ZKA6w5Vv6vw",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 47,
+    "title": "Glute-Ham Raise",
+    "link": "https://www.youtube.com/watch?v=igHoU1JTN5s",
+    "muscle_group": ["Legs", "Back", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 48,
+    "title": "Pistol Squat",
+    "link": "https://www.youtube.com/watch?v=URC7aVqYvI4",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 49,
+    "title": "Back Extension",
+    "link": "https://www.youtube.com/watch?v=1fR0M5S3vJk",
+    "muscle_group": ["Back", "Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 50,
+    "title": "Hanging Leg Raise",
+    "link": "https://www.youtube.com/watch?v=urhS6v3XK2k",
+    "muscle_group": ["Core"],
+    "resistance": "Bodyweight"
+  },
+  {
+    "id": 51,
+    "title": "Cable Row",
+    "link": "https://www.youtube.com/watch?v=GZbfZ033f74",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 52,
+    "title": "Lat Pulldown",
+    "link": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 53,
+    "title": "Face Pull",
+    "link": "https://www.youtube.com/watch?v=Rep-j-2b5Jg",
+    "muscle_group": ["Shoulders", "Back"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 54,
+    "title": "Cable Fly",
+    "link": "https://www.youtube.com/watch?v=taI4XduLpTk",
+    "muscle_group": ["Chest"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 55,
+    "title": "Cable Lateral Raise",
+    "link": "https://www.youtube.com/watch?v=bnprF5jNqvw",
+    "muscle_group": ["Shoulders"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 56,
+    "title": "Triceps Pushdown",
+    "link": "https://www.youtube.com/watch?v=vB5OHsJ3EME",
+    "muscle_group": ["Arms"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 57,
+    "title": "Cable Curl",
+    "link": "https://www.youtube.com/watch?v=1SSskoYia8I",
+    "muscle_group": ["Arms"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 58,
+    "title": "Single-Arm Cable Row",
+    "link": "https://www.youtube.com/watch?v=JZkS6DHtY6c",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 59,
+    "title": "Reverse Fly (Cable)",
+    "link": "https://www.youtube.com/watch?v=QdZTyf8m3Qc",
+    "muscle_group": ["Back", "Shoulders"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 60,
+    "title": "Straight-Arm Pulldown",
+    "link": "https://www.youtube.com/watch?v=K8mG8YI4WfU",
+    "muscle_group": ["Back"],
+    "resistance": "Cable"
+  },
+  {
+    "id": 61,
+    "title": "Kettlebell Swing",
+    "link": "https://www.youtube.com/watch?v=0bPZqBpF85I",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 62,
+    "title": "Kettlebell Goblet Squat",
+    "link": "https://www.youtube.com/watch?v=6xw9MFgG7hQ",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 63,
+    "title": "Kettlebell Clean",
+    "link": "https://www.youtube.com/watch?v=zQZbS2sJ7xA",
+    "muscle_group": ["Back", "Legs", "Arms", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 64,
+    "title": "Kettlebell Press",
+    "link": "https://www.youtube.com/watch?v=l1W2s9mYjmk",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 65,
+    "title": "Kettlebell Row",
+    "link": "https://www.youtube.com/watch?v=QvQjSfnJk4o",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 66,
+    "title": "Turkish Get-Up",
+    "link": "https://www.youtube.com/watch?v=V1vZ1QSngds",
+    "muscle_group": ["Core", "Shoulders", "Back", "Legs"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 67,
+    "title": "Kettlebell Snatch",
+    "link": "https://www.youtube.com/watch?v=8d5Z3wC7ZP8",
+    "muscle_group": ["Back", "Shoulders", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 68,
+    "title": "Kettlebell Front Rack Squat",
+    "link": "https://www.youtube.com/watch?v=HqVQvO1l6O0",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 69,
+    "title": "Kettlebell Deadlift",
+    "link": "https://www.youtube.com/watch?v=FLaQ0w-5o6o",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 70,
+    "title": "Kettlebell Clean and Press",
+    "link": "https://www.youtube.com/watch?v=3F_3lbiZP3M",
+    "muscle_group": ["Back", "Shoulders", "Arms", "Core", "Legs"],
+    "resistance": "Kettlebell"
+  },
+  {
+    "id": 71,
+    "title": "Machine Leg Press",
+    "link": "https://www.youtube.com/watch?v=IZxyjW7MPJQ",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 72,
+    "title": "Machine Hack Squat",
+    "link": "https://www.youtube.com/watch?v=sQKJv1CovfY",
+    "muscle_group": ["Legs", "Core"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 73,
+    "title": "Machine Chest Press",
+    "link": "https://www.youtube.com/watch?v=6G6WfYpBvOo",
+    "muscle_group": ["Chest", "Shoulders", "Arms"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 74,
+    "title": "Machine Row",
+    "link": "https://www.youtube.com/watch?v=GZbfZ033f74",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 75,
+    "title": "Machine Shoulder Press",
+    "link": "https://www.youtube.com/watch?v=H1Z3OvuX1sY",
+    "muscle_group": ["Shoulders", "Arms"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 76,
+    "title": "Machine Leg Curl",
+    "link": "https://www.youtube.com/watch?v=1Tq3QdYUuWs",
+    "muscle_group": ["Legs"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 77,
+    "title": "Machine Leg Extension",
+    "link": "https://www.youtube.com/watch?v=YyvSfVjQeL0",
+    "muscle_group": ["Legs"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 78,
+    "title": "Machine Calf Raise",
+    "link": "https://www.youtube.com/watch?v=S8B_xbPVp4w",
+    "muscle_group": ["Legs"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 79,
+    "title": "Machine Pec Deck",
+    "link": "https://www.youtube.com/watch?v=UJZ1nGx0l7I",
+    "muscle_group": ["Chest"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 80,
+    "title": "Machine Assisted Pull-Up",
+    "link": "https://www.youtube.com/watch?v=tZsEoSgS6gM",
+    "muscle_group": ["Back", "Arms"],
+    "resistance": "Machine"
+  },
+  {
+    "id": 81,
+    "title": "Barbell Hip Thrust",
+    "link": "https://www.youtube.com/watch?v=FJPH8gxzW1A",
+    "muscle_group": ["Legs", "Core", "Back"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 82,
+    "title": "Deficit Deadlift",
+    "link": "https://www.youtube.com/watch?v=0DZcZkziEtE",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 83,
+    "title": "Snatch High Pull",
+    "link": "https://www.youtube.com/watch?v=1wV8nV64zL4",
+    "muscle_group": ["Back", "Shoulders", "Legs", "Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 84,
+    "title": "Clean Pull",
+    "link": "https://www.youtube.com/watch?v=0mFx5GZKq5g",
+    "muscle_group": ["Back", "Legs", "Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 85,
+    "title": "Power Clean",
+    "link": "https://www.youtube.com/watch?v=Oa6ZpC6J8d8",
+    "muscle_group": ["Back", "Legs", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 86,
+    "title": "Power Snatch",
+    "link": "https://www.youtube.com/watch?v=NlCqYzJtk_k",
+    "muscle_group": ["Back", "Shoulders", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 87,
+    "title": "Split Jerk",
+    "link": "https://www.youtube.com/watch?v=YV6Tn4C8t9E",
+    "muscle_group": ["Shoulders", "Arms", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 88,
+    "title": "Push Press",
+    "link": "https://www.youtube.com/watch?v=iaBVSJmE4jM",
+    "muscle_group": ["Shoulders", "Arms", "Core", "Legs"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 89,
+    "title": "Seated Overhead Press",
+    "link": "https://www.youtube.com/watch?v=_Zp8e1uKXwo",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 90,
+    "title": "Reverse Curl",
+    "link": "https://www.youtube.com/watch?v=rPMw2nX1mQw",
+    "muscle_group": ["Arms", "Forearms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 91,
+    "title": "Barbell Curl",
+    "link": "https://www.youtube.com/watch?v=kwG2ipFRgfo",
+    "muscle_group": ["Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 92,
+    "title": "Skull Crushers",
+    "link": "https://www.youtube.com/watch?v=d_KZxkY_0cM",
+    "muscle_group": ["Arms"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 93,
+    "title": "JM Press",
+    "link": "https://www.youtube.com/watch?v=7v3AMi9F0rE",
+    "muscle_group": ["Arms", "Chest"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 94,
+    "title": "Floor Press",
+    "link": "https://www.youtube.com/watch?v=az3tQ1a9C2U",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 95,
+    "title": "Swiss Bar Bench Press",
+    "link": "https://www.youtube.com/watch?v=d4RrQm4dQnI",
+    "muscle_group": ["Chest", "Arms", "Shoulders"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 96,
+    "title": "Paused Deadlift",
+    "link": "https://www.youtube.com/watch?v=QmT6l4fC7ic",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 97,
+    "title": "Stiff-Leg Deadlift",
+    "link": "https://www.youtube.com/watch?v=HWGmmc2fAeE",
+    "muscle_group": ["Back", "Legs", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 98,
+    "title": "Landmine Press",
+    "link": "https://www.youtube.com/watch?v=H0FHnUqW8v4",
+    "muscle_group": ["Shoulders", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 99,
+    "title": "Landmine Row",
+    "link": "https://www.youtube.com/watch?v=4xj4G4C6vZc",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Barbell"
+  },
+  {
+    "id": 100,
+    "title": "Bentover Row (Supinated Grip)",
+    "link": "https://www.youtube.com/watch?v=vT2GjY_Umpw",
+    "muscle_group": ["Back", "Arms", "Core"],
+    "resistance": "Barbell"
+  }
 ]

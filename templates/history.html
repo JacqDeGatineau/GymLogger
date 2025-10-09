@@ -11,9 +11,18 @@
     {% if sessions %}
     <ul>
         {% for session in sessions %}
-            <li>
-                <strong>Date & Time:</strong> {{ session.time }} <br>
-            </li>
+            <h3>Session at {{ session.time }}</h3>
+            {% if session.workouts %}
+                <ul>
+                    {% for workout in session.workouts %}
+                        {{ workout.sets }} sets of {{ workout.title }} | top set: {{ workout.weight }} kg <br>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No workouts recorded for this session.</p>
+            {% endif %}
+            <br>
+            
         {% endfor %}
     </ul>
     {% else %}

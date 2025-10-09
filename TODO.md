@@ -16,12 +16,14 @@ Phase 1:
    
 - Exercise CRUD
     1. ~~Save session~~
-    2. Search from history
+    2. ~~Search from history~~
     3. edit and remove workouts
+- Workout history
 
 Phase 2:
+- Social Media -feed
 - UI with CSS
-- Workout sessions
+- ~~workout sessions~~
 - data validation
 - Statistics
 
@@ -30,3 +32,4 @@ Bugs
 - ~~registering does not work, query looks for a non-existant column~~
 - ~~end workout in /result does nothing currently~~
 - ~~Ño session saved???~~
+- Fix the reps being add to all exercises in /workout

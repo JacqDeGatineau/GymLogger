@@ -89,9 +89,17 @@ def check_csrf():
 @app.route("/history", methods=["GET", "POST"])
 def show_history():
     require_login()
-
+    
     sessions = gym.get_sessions()
-    return render_template("history.html", sessions=sessions)
+
+    sessions_with_workouts = []
+    for session in sessions:
+        session_dict = dict(session)
+        session_id = session['id']
+        session_dict['workouts'] = gym.get_workouts_by_session(session_id)
+        sessions_with_workouts.append(session_dict)
+
+    return render_template("history.html", sessions=sessions_with_workouts)
 
 @app.route("/session")
 def select_exercises():
@@ -166,7 +174,7 @@ def result():
             
             # Process each set for this exercise
             for i in range(len(reps)):
-                gym.add_workout(1, reps[i], weight[i], session_id, exercise_id)
+                gym.add_workout((i+1), reps[i], weight[i], session_id, exercise_id)
 
         print("Session id", session_id)
     except Exception as e:

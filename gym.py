@@ -16,6 +16,15 @@ def get_sessions():
              ORDER BY t.time DESC"""
     return db.query(sql)
 
+def get_workouts_by_session(session_id):
+    sql = """SELECT w.sets, MAX(w.reps) AS reps, MAX(w.weight) AS weight, e.title
+             FROM workout w
+             JOIN exercises e ON w.exercise_id = e.id
+             WHERE w.session_id = ?
+             GROUP BY e.title
+             ORDER BY w.weight DESC"""
+    return db.query(sql, [session_id])
+
 def search(query):
     sql = """SELECT e.title,
                     u.username

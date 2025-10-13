@@ -22,8 +22,12 @@
                 <p>No workouts recorded for this session.</p>
             {% endif %}
             <br>
-            
+            <form action="/delete_session" method="POST">
+                <input type="hidden" name="session_id" value="{{ session.id }}">
+                <button type="submit">Delete Session</button>
+            </form>
         {% endfor %}
+
     </ul>
     {% else %}
         <p>No workout sessions found.</p>

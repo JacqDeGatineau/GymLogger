@@ -19,6 +19,7 @@ Phase 1:
     2. ~~Search from history~~
     3. edit and remove workouts
 - Workout history
+- Session title
 
 Phase 2:
 - Social Media -feed

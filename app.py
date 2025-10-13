@@ -154,6 +154,7 @@ def result():
         # Get the exercises from the form to preserve them
         selected_exercises = request.form.getlist('exercise_ids[]')
         exercises = gym.get_exercises_by_ids(selected_exercises)
+        print(exercises)
         return render_template("workout.html", exercises=exercises, set_count=set_count)
     
     check_csrf()

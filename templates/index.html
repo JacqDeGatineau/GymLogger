@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>Etusivu</title>
@@ -9,17 +10,14 @@
     {%if session.username%}
         <img src="/static/smile.jpg" />
         <p>Welcome {{ session.username }}!</p>
-        <p>
-            <a href="/session">Begin a workout</a>
-        </p>
+        
+        <p><a href="/session">Begin a workout</a></p>
 
-        <p>
-            <a href="/history">Workout history</a>
-        </p>
+        <p><a href="/history">Workout history</a></p>
 
-        <p>
-            <a href="/logout">Log out!</a>
-        </p>
+        <p><a href="/feed">Body Dysmorphia Feed</a></p>
+
+        <p><a href="/logout">Log out!</a></p>
     {% else %}
 
     <form action="/register" method="post">

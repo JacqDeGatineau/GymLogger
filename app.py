@@ -190,4 +190,9 @@ def end_workout():
     user_id = session["user_id"]
     return redirect("/")
 
+@app.route("/feed")
+def feed():
+    require_login()
+    user_id = session["user_id"]
+    return render_template("feed.html")
 

@@ -73,3 +73,37 @@ def add_workout(sets, reps, weight, session_id, exercise_id):
     sql = """INSERT INTO workout (sets, reps, weight, exercise_id, session_id)
              VALUES (?, ?, ?, ?, ?)"""
     db.execute(sql, [sets, reps, weight, exercise_id, session_id])
+
+def get_feed():
+    sql = """SELECT f.id, f.image, f.caption, f.time, u.username
+             FROM feed f
+             JOIN users u ON f.user_id = u.id
+             ORDER BY f.time DESC"""
+    return db.query(sql)
+
+def add_feed(user_id, image, caption):
+    sql = """INSERT INTO feed (user_id, image, caption, time) 
+             VALUES (?, ?, ?, datetime('now'))"""
+    db.execute(sql, [user_id, image, caption])
+    feed_id = db.last_insert_id()
+    return feed_id
+
+def get_feed_image(feed_id):
+    sql = """SELECT image FROM feed WHERE id = ?"""
+    result = db.query(sql, [feed_id])
+    if result:
+        return result[0]['image']
+    return None
+
+def add_comment(user_id, feed_id, comment):
+    sql = """INSERT INTO comments (user_id, feed_id, comment, time) 
+             VALUES (?, ?, ?, datetime('now'))"""
+    db.execute(sql, [user_id, feed_id, comment])
+
+def get_comments(feed_id):
+    sql = """SELECT c.comment, c.time, u.username
+             FROM comments c
+             JOIN users u ON c.user_id = u.id
+             WHERE c.feed_id = ?
+             ORDER BY c.time DESC"""
+    return db.query(sql, [feed_id])

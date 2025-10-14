@@ -46,4 +46,18 @@ CREATE TABLE IF NOT EXISTS session_workouts (
     PRIMARY KEY (session_id, workout_id)
 );
 
+CREATE TABLE IF NOT EXISTS feed (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    image BLOB,
+    caption TEXT,
+    time DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
+CREATE TABLE IF NOT EXISTS comments (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    feed_id INTEGER REFERENCES feed,
+    comment TEXT,
+    time DATETIME DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session, abort, flash, url_for
+from flask import redirect, render_template, request, session, abort, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import config, gym
@@ -190,9 +190,52 @@ def end_workout():
     user_id = session["user_id"]
     return redirect("/")
 
-@app.route("/feed")
+@app.route("/feed", methods=["POST", "GET"])
 def feed():
     require_login()
     user_id = session["user_id"]
-    return render_template("feed.html")
 
+    feed = gym.get_feed()
+
+    feed_with_comments = []
+    for post in feed:
+        post_dict = dict(post)  # Convert sqlite3.Row to dict
+        post_dict['comments'] = gym.get_comments(post['id'])
+        feed_with_comments.append(post_dict)
+    return render_template("feed.html", feed=feed_with_comments)
+
+@app.route("/add_image", methods=["POST"])
+def add_image():
+    require_login()
+    user_id = session["user_id"]
+
+    file = request.files.get("image")
+    caption = request.form.get("caption")
+
+    if file:
+        image = file.read()
+        gym.add_feed(user_id, image, caption)
+    else:
+        gym.add_feed(user_id, None, caption)
+    return redirect("/feed")
+
+@app.route("/image/<int:feed_id>")
+def show_image(feed_id):
+    image = gym.get_feed_image(feed_id)
+    if not image:
+        abort(404)
+
+    response = make_response(bytes(image))
+    response.headers.set("Content-Type", "image/jpeg")
+    return response
+
+@app.route("/add_comment", methods=["POST"])
+def comment():
+    require_login()
+    user_id = session["user_id"]
+    feed_id = request.form.get("feed_id")
+
+    comment = request.form.get("comment")
+    if comment:
+        gym.add_comment(user_id, feed_id, comment)
+    return redirect("/feed")

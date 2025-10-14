@@ -3,10 +3,13 @@
 <html>
 <head>
     <title>Etusivu</title>
+    <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
-    <h1>Get strong!</h1>
+    <div class="header">
+    <h1>OTSØ</h1>
+    </div>
     {%if session.username%}
         <img src="/static/smile.jpg" />
         <p>Welcome {{ session.username }}!</p>
@@ -20,24 +23,21 @@
         <p><a href="/logout">Log out!</a></p>
     {% else %}
 
-    <form action="/register" method="post">
-        Sign-in here you crazy animal! <br />
-        <input type="submit" value="OK boss!" />
-    </form>
-
     <form action="/login" method="post">
         <p>
-        Log-in here you wild thing! <br />
-        <br />
-        Username: <br />
-        <input type="text" name="username" />
+        <input type="text" class="input" name="username" placeholder="user"/>
         </p>
         <p>
-        Password: <br />
-        <input type="password" name="password" />
+        <input type="password" class="input" name="password" placeholder="pass"/>
         </p>
-        <input type="submit" value="login" />
+        <input type="submit" class="button" value="login" />
     </form>
+    <br/>
+    <form action="/register" method="post">
+        <input type="submit" class="button" style="margin: 2em 0;" value="sign-in" align="bottom"/>
+    </form>
+
+    
     {% endif %}
 </body>
 

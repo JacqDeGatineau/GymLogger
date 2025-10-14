@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Alte DIN 1451 Mittelschrift gepraegt Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('/static/fonts/Alte DIN 1451 Mittelschrift gepraegt Regular'), url('/static/fonts/din1451alt G.woff') format('woff');
+    }
+
+body {
+  margin: 2em auto;
+  max-width: 50em;
+  font-family: 'Alte DIN 1451 Mittelschrift gepraegt Regular';
+  color: #004390;
+  background-color: #f9f8ea;
+}
+
+.input {
+  border: 2px solid #004390;
+  padding: 0.2em;
+  background-color: #f9f8ea;
+}
+
+.button {
+  font-family: 'Alte DIN 1451 Mittelschrift gepraegt Regular';
+  color: #004390;
+  background-color: #f9f8ea;
+  border-radius: 15px;
+  border: 2px solid #004390;
+  padding: 0.3em 1em 0.3em 1em;
+  cursor: pointer;
+}

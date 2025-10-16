@@ -33,5 +33,5 @@ Bugs
 - ~~registering does not work, query looks for a non-existant column~~
 - ~~end workout in /result does nothing currently~~
 - ~~Ño session saved???~~
-- Fix the reps being add to all exercises in /workout
-- workout history is the same for everybody, I donät think it currently updates at all
+- ~~Fix the reps being add to all exercises in /workout~~
+- ~~workout history is the same for everybody, I donät think it currently updates at all~~

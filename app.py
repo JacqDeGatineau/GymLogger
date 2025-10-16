@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask
+from flask import Flask, url_for
 from flask import redirect, render_template, request, session, abort, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
@@ -91,7 +91,6 @@ def require_login():
     
 def check_csrf():
     csrf_token = request.form.get("csrf_token")
-    #if request.form["csrf_token"] != session["csrf_token"]:
     if not csrf_token or csrf_token != session.get("csrf_token"):
         abort(403)
 
@@ -100,7 +99,6 @@ def show_history():
     require_login()
     user_id = session["user_id"]
     sessions = gym.get_sessions(user_id)
-    print(sessions)
 
     sessions_with_workouts = []
     for s in sessions:
@@ -108,7 +106,6 @@ def show_history():
         s_id = s['id']
         s_dict['workouts'] = gym.get_workouts_by_session(s_id)
         sessions_with_workouts.append(s_dict)
-    print(sessions_with_workouts)
 
     return render_template("history.html", sessions=sessions_with_workouts)
 
@@ -122,9 +119,8 @@ def delete_session():
 @app.route("/session")
 def select_exercises():
     require_login()
-    #username = session["username"]
     exercises = gym.get_exercises()
-    return render_template("session.html", exercises=exercises)
+    return render_template("session.html", exercises=exercises, selected_ids=[])
 
 def filter_exercises(query: str):
     exercises = gym.get_exercises()
@@ -136,82 +132,73 @@ def filter_exercises(query: str):
 @app.get("/search")
 def search():
     query = request.args.get("query", "")
-    # Selected IDs are propagated via GET so we can preserve them between searches
-    selected_ids = set(request.args.getlist("selected"))
+
+    all_selected = []
+    currently_selected_ids = request.args.getlist("selected")
+    currently_selected_ids = [int(sid) for sid in currently_selected_ids]
+
+    if currently_selected_ids:
+        for sid in currently_selected_ids:
+            all_selected.append(sid)
+    print("Selected ids search:", all_selected)
     exercises = filter_exercises(query)
     return render_template(
         "session.html",
         query=query,
         exercises=exercises,
-        selected_ids=selected_ids
+        selected_ids=all_selected
     )
 
 @app.route("/create-workout", methods=["POST"])
 def create_workout():
     require_login()
-    user_id = session["user_id"]
-    selected_exercises = request.form.getlist('exercises')
-    exercises = gym.get_exercises_by_ids(selected_exercises)
-    return render_template("workout.html", exercises=exercises,  set_count=1)
+    check_csrf()
 
-@app.route("/workout", methods=["POST"])
+    selected_exercises = request.form.getlist('selected')
+    exercises = gym.get_exercises_by_ids(selected_exercises)
+
+    return render_template("workout.html", exercises=exercises, set_count=3)
+
+@app.route("/workout", methods=["POST", "GET"])
 def result():
     require_login()
-    set_count = 1
-
-    if 'add_set' in request.form:
-        set_count = int(request.form.get('set_count',1)) + 1
-        # Get the exercises from the form to preserve them
-        selected_exercises = request.form.getlist('exercise_ids[]')
-        exercises = gym.get_exercises_by_ids(selected_exercises)
-        print(exercises)
-        return render_template("workout.html", exercises=exercises, set_count=set_count)
-    
-    check_csrf()
     user_id = session["user_id"]
+    check_csrf()
 
     exercises_data = request.form.getlist("exercise_ids[]")
-    try:
-        session_id = gym.add_session(user_id)
+    session_id = gym.add_session(user_id)
 
-        for exercise in exercises_data:
-            reps = request.form.getlist("reps[{}][]".format(exercise))
-            weight = request.form.getlist("weight[{}][]".format(exercise))
+    for exercise in exercises_data:
+        reps = request.form.getlist("reps[{}][]".format(exercise))
+        weight = request.form.getlist("weight[{}][]".format(exercise))
+        exercise_id = gym.get_exercise_by_id(exercise)
 
-            exercise_id = gym.get_exercise_by_id(exercise)
-            print(exercise_id)
-            if exercise_id is None:
-                return "Exercise not found", 404
-            
-            # Process each set for this exercise
-            for i in range(len(reps)):
-                gym.add_workout((i+1), reps[i], weight[i], session_id, exercise_id)
+        if exercise_id is None:
+            return "Exercise not found", 404
+        
+        # Process each set for this exercise
+        for i in range(len(reps)):
+            gym.add_workout((i+1), reps[i], weight[i], session_id, exercise_id)
+    return redirect("/end_workout")
 
-        print("Session id", session_id)
-    except Exception as e:
-        print("Error adding session or workouts:", e)
-        return "An error occurred", 500
 
-    return redirect("/")
-
-@app.route("/end_workout", methods=["POST"])
+@app.route("/end_workout", methods=["POST", "GET"])
 def end_workout():
     require_login()
-    user_id = session["user_id"]
-    return redirect("/")
+    return render_template("workout_saved.html")
 
 @app.route("/feed", methods=["POST", "GET"])
 def feed():
     require_login()
-    user_id = session["user_id"]
 
     feed = gym.get_feed()
-
     feed_with_comments = []
+
     for post in feed:
         post_dict = dict(post)  # Convert sqlite3.Row to dict
         post_dict['comments'] = gym.get_comments(post['id'])
         feed_with_comments.append(post_dict)
+    
     return render_template("feed.html", feed=feed_with_comments)
 
 @app.route("/add_image", methods=["POST"])

@@ -12,27 +12,22 @@
 
     <form action="/workout" method="POST">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        
         {% for exercise in exercises %}
+        <input type="hidden" name="exercise_ids[]" value="{{ exercise.id }}">
             <p>{{ exercise.title }}:</p>
             {% for i in range(set_count) %}
                 <div>
-                    <!-- <input type="number" name<="sets[{{ exercise.id }}]" min="1" value="3"/> Sets-->
-                    <input type="number" class="input name="reps[{{ exercise.id }}][]" min="1" value="5" required/> reps
-                    <input type="number" class="input"name="weight[{{ exercise.id }}][]" min="0" value="20" required/> kg
-                    
-                    <!-- <input type="hidden" name="exercise" value="{{ exercise.id }}"/> -->
+                    <input type="number" class="input" name="reps[{{ exercise.id }}][]" min="1" value="5" required/> reps
+                    <input type="number" class="input" name="weight[{{ exercise.id }}][]" min="0" value="20" required/> kg
                 </div>
                 <br/>
             {% endfor %}
             <br/>
-            <!-- <input type="button" name="Add set[{{ exercise.id }}]" value="Add set"/> -->
-            <input type="hidden" name="exercise_ids[]" value="{{ exercise.id }}"/> 
-            <input type="hidden" name="set_count" value="{{ set_count }}">
-            <button type="submit" class="button" name="add_set">Add Set</button>
-            
+
             <hr/>
         {% endfor %} 
-        <button type="submit" class="button" name="finish">End Workout!</button>
+        <button type="submit" class="button" name="save">Save session to history</button>
     </form>
     </div>
 </body>

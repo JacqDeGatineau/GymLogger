@@ -41,8 +41,7 @@
 
     {% for exercise in exercises %}
       <p>
-        <a href="/exercise/{{ exercise.id }}">{{ exercise.title }}</a><br />
-        <a href="{{ exercise.link }}" target="_blank" rel="noopener">Guide</a><br />
+        <a href="{{ exercise.link }}" target="_blank" rel="noopener">{{ exercise.title }}</a><br />
 
         <input
           type="checkbox"

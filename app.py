@@ -140,7 +140,7 @@ def search():
     if currently_selected_ids:
         for sid in currently_selected_ids:
             all_selected.append(sid)
-    print("Selected ids search:", all_selected)
+
     exercises = filter_exercises(query)
     return render_template(
         "session.html",

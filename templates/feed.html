@@ -7,9 +7,10 @@
 </head>
 
 <body>
+    <div class="container">
     <h1>Body Dysmorphia Feed</h1>
 
-    <h3>Place to add images of yourself and comment on others to feel worse about yourself</h3>
+    <h3 style="margin-bottom: 40px; text-align: center;">Place to add images of yourself <br/> and comment on others to feel worse about yourself</h3>
 
     {% for post in feed %}
         <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
@@ -22,27 +23,30 @@
             {% endif %}
         </div>
         
-        <div style="margin-top: 15px;">
+        
+        <div style="margin-top: 15px; align-items: left;">
             <strong>Comments:</strong>
             {% if post.comments %}
                 {% for comment in post.comments %}
-                    <div style="margin-left: 20px; margin-top: 5px; padding: 5px; background-color: #f0f0f0;">
-                        <strong>{{ comment.username }}:</strong> {{ comment.comment }}
+                    <div>
+                        <strong>{{ comment.username }}:</strong> {{ comment.comment | show_lines }}
                         <small style="color: gray;">{{ comment.time }}</small>
                     </div>
                 {% endfor %}
             {% else %}
-                <p style="margin-left: 20px; color: gray;">No-one cares</p>
+                <p style="color: gray;">No-one cares</p>
             {% endif %}
-        </div>
+        
         <hr/>
 
         <form action="add_comment" method="POST">
             <input type="hidden" name="feed_id" value="{{ post.id }}">
-            <input type="text" name="comment" placeholder="Add a comment" required>
-            <button type="submit">Post Comment</button>
+            <textarea name="comment" class="input" rows="3" cols="28" placeholder="Add a comment" required></textarea>
+            <button class="button" type="submit">Post Comment</button>
         </form>
+        
         <hr>
+        </div>
 
     {% else %}
         <p>No posts available.</p>
@@ -53,13 +57,14 @@
             Image: <input type="file" name="image" accept=".jpg" />
         </p>
         <p>
-            Caption: <input type="text" name="caption" />
+            Caption: <input type="text" class="input" name="caption" />
         </p>
-        <input type="submit" value="Lähetä" />
+        <input type="submit" class="button" value="Lähetä" />
     </form>
     <br/>
-    <a href="/">
-        <button>Home</button>
+    <a href="/" class="form">
+        <button class="button">Home</button>
     </a>
+    </div>
 </body>
 </html>

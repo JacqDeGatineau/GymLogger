@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <div class="container">
     <h2>Log your workout</h2>
 
     <form action="/workout" method="POST">
@@ -16,8 +17,8 @@
             {% for i in range(set_count) %}
                 <div>
                     <!-- <input type="number" name<="sets[{{ exercise.id }}]" min="1" value="3"/> Sets-->
-                    <input type="number" name="reps[{{ exercise.id }}][]" min="1" value="5" required/> reps
-                    <input type="number" name="weight[{{ exercise.id }}][]" min="0" value="20" required/> kg
+                    <input type="number" class="input name="reps[{{ exercise.id }}][]" min="1" value="5" required/> reps
+                    <input type="number" class="input"name="weight[{{ exercise.id }}][]" min="0" value="20" required/> kg
                     
                     <!-- <input type="hidden" name="exercise" value="{{ exercise.id }}"/> -->
                 </div>
@@ -27,11 +28,12 @@
             <!-- <input type="button" name="Add set[{{ exercise.id }}]" value="Add set"/> -->
             <input type="hidden" name="exercise_ids[]" value="{{ exercise.id }}"/> 
             <input type="hidden" name="set_count" value="{{ set_count }}">
-            <button type="submit" name="add_set">Add Set</button>
+            <button type="submit" class="button" name="add_set">Add Set</button>
             
             <hr/>
         {% endfor %} 
-        <button type="submit" name="finish">End Workout!</button>
+        <button type="submit" class="button" name="finish">End Workout!</button>
     </form>
+    </div>
 </body>
 </html>

@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <div class="container">
     <h1>Your workout history</h1>
 
     {% if sessions %}
@@ -20,12 +21,14 @@
                     {% endfor %}
                 </ul>
             {% else %}
+                <ul>
                 <p>No workouts recorded for this session.</p>
+                </ul>
             {% endif %}
             <br>
             <form action="/delete_session" method="POST">
                 <input type="hidden" name="session_id" value="{{ session.id }}">
-                <button type="submit">Delete Session</button>
+                <button class="button" type="submit">Delete Session</button>
             </form>
         {% endfor %}
 
@@ -35,7 +38,8 @@
     {% endif %}   
 
     <a href="/">
-        <button>Home</button>
+        <button class="button">Home</button>
     </a>
+
 </body>
 </html>

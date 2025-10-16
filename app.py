@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import config, gym
 import db
+import markupsafe
 
 app = Flask(__name__)
 #for development only! Change for production!
@@ -16,7 +17,6 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    #print(request.form)
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -42,6 +42,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    #Function to log out the user
     del session["username"]
     return redirect("/")
 
@@ -53,14 +54,22 @@ def register():
 def create():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
-        if not username or len(username) > 16:
-            flash("Billions of bilious blue blistering barnacles! Username is too long!")
+        if not username or len(username) < 5 or len(username) > 16:
+            if len(username) > 16:
+                flash("Zounds! Username is too long!")
+            elif len(username) < 5:
+                flash("Billions of bilious blue blistering barnacles! Username is too short!")
+            elif not username:
+                flash("Gadzooks! Username is required!")
             return redirect("/create")
         password1 = request.form.get("password", "")
         password2 = request.form.get("repeat password", "")
 
-        if password1 != password2:
-            flash("Quivering ectoplasm! Passwords don't match!")
+        if password1 != password2 or len(password1) < 8:
+            if password1 != password2:
+                flash("Quivering ectoplasm! Passwords don't match!")
+            elif len(password1) < 8:
+                flash("Blistering barnacles! Password must be at least 8 characters long!")
             return redirect("/create")
         
         password_hash = generate_password_hash(password1)
@@ -89,17 +98,26 @@ def check_csrf():
 @app.route("/history", methods=["GET", "POST"])
 def show_history():
     require_login()
-    
-    sessions = gym.get_sessions()
+    user_id = session["user_id"]
+    sessions = gym.get_sessions(user_id)
+    print(sessions)
 
     sessions_with_workouts = []
-    for session in sessions:
-        session_dict = dict(session)
-        session_id = session['id']
-        session_dict['workouts'] = gym.get_workouts_by_session(session_id)
-        sessions_with_workouts.append(session_dict)
+    for s in sessions:
+        s_dict = dict(s)
+        s_id = s['id']
+        s_dict['workouts'] = gym.get_workouts_by_session(s_id)
+        sessions_with_workouts.append(s_dict)
+    print(sessions_with_workouts)
 
     return render_template("history.html", sessions=sessions_with_workouts)
+
+@app.route("/delete_session", methods=["POST"])
+def delete_session():
+    require_login()
+    session_id = request.form.get("session_id")
+    gym.delete_session(session_id)
+    return redirect("/history")
 
 @app.route("/session")
 def select_exercises():
@@ -128,20 +146,12 @@ def search():
         selected_ids=selected_ids
     )
 
-"""@app.route("/search")
-def search():
-    query = request.args.get("query")
-    results = gym.search(query) if query else []
-    return render_template("session.html", query=query, results=results)"""
-
 @app.route("/create-workout", methods=["POST"])
 def create_workout():
     require_login()
     user_id = session["user_id"]
     selected_exercises = request.form.getlist('exercises')
-    #print(selected_exercises)
     exercises = gym.get_exercises_by_ids(selected_exercises)
-    #print(exercises)
     return render_template("workout.html", exercises=exercises,  set_count=1)
 
 @app.route("/workout", methods=["POST"])
@@ -239,3 +249,9 @@ def comment():
     if comment:
         gym.add_comment(user_id, feed_id, comment)
     return redirect("/feed")
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)

@@ -6,23 +6,24 @@
 </head>
 
 <body>
+    <div class="container">
     <h2>Select exercises</h2>
 
     <form action="/search" method="get">
     <p>
       Search:
-      <input type="text" name="query" value="{{ query or '' }}" />
+      <input type="text" class="input" name="query" value="{{ query or '' }}" />
     </p>
 
     {% for sid in selected_ids %}
       <input type="hidden" name="selected" value="{{ sid }}">
     {% endfor %}
 
-    <input type="submit" value="Search" />
+    <input type="submit" class="button" value="Search" />
     </form>
 
     <p>
-      <input type="submit" value="Begin workout!" form="create-workout-form">
+      <input type="submit" class="button" value="Begin workout!" form="create-workout-form">
     </p>
 
   {% if query %}
@@ -55,8 +56,9 @@
     {% endfor %}
 
     <p>
-      <input type="submit" value="Begin workout!">
+      <input type="submit" class="button" value="Begin workout!">
     </p>
   </form>
+  </div>
 </body>
 </html>

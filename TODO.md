@@ -18,12 +18,12 @@ Phase 1:
     1. ~~Save session~~
     2. ~~Search from history~~
     3. edit and remove workouts
-- Workout history
+- ~~Workout history~~
 - Session title
 
 Phase 2:
-- Social Media -feed
-- UI with CSS
+- ~~Social Media -feed~~
+- ~~UI with CSS~~
 - ~~workout sessions~~
 - data validation
 - Statistics

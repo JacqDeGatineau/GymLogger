@@ -67,7 +67,12 @@ def add_session(user_id):
     return session_id
 
 def delete_session(session_id):
+    delete_workouts(session_id)
     sql = "DELETE FROM session WHERE id = ?"
+    db.execute(sql, [session_id])
+
+def delete_workouts(session_id):
+    sql = "DELETE FROM workout WHERE session_id = ?"
     db.execute(sql, [session_id])
     
 def add_workout(sets, reps, weight, session_id, exercise_id):

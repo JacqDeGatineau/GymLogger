@@ -71,7 +71,6 @@ def create():
             elif len(password1) < 8:
                 flash("Blistering barnacles! Password must be at least 8 characters long!")
             return redirect("/create")
-        
         password_hash = generate_password_hash(password1)
 
         try:
@@ -82,13 +81,13 @@ def create():
         except sqlite3.IntegrityError:
             flash("Gibbering anthropoids! The username has been taken!")
             return redirect("/create")
-    
+
     return render_template("register.html")
 
 def require_login():
     if "username" not in session:
         abort(403)
-    
+
 def check_csrf():
     csrf_token = request.form.get("csrf_token")
     if not csrf_token or csrf_token != session.get("csrf_token"):
@@ -169,18 +168,19 @@ def result():
     session_id = gym.add_session(user_id)
 
     for exercise in exercises_data:
-        reps = request.form.getlist("reps[{}][]".format(exercise))
-        weight = request.form.getlist("weight[{}][]".format(exercise))
+        #reps = request.form.getlist("reps[{}][]".format(exercise))
+        #weight = request.form.getlist("weight[{}][]".format(exercise))
+        reps = request.form.getlist(f"reps[{exercise}][]")
+        weight = request.form.getlist(f"weight[{exercise}][]")
         exercise_id = gym.get_exercise_by_id(exercise)
 
         if exercise_id is None:
             return "Exercise not found", 404
-        
+
         # Process each set for this exercise
         for i in range(len(reps)):
             gym.add_workout((i+1), reps[i], weight[i], session_id, exercise_id)
     return redirect("/end_workout")
-
 
 @app.route("/end_workout", methods=["POST", "GET"])
 def end_workout():
@@ -198,7 +198,7 @@ def feed():
         post_dict = dict(post)  # Convert sqlite3.Row to dict
         post_dict['comments'] = gym.get_comments(post['id'])
         feed_with_comments.append(post_dict)
-    
+
     return render_template("feed.html", feed=feed_with_comments)
 
 @app.route("/add_image", methods=["POST"])

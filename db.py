@@ -16,7 +16,7 @@ def execute(sql, params=[]):
     return result
 
 def last_insert_id():
-    return getattr(g, 'last_insert_id', None) 
+    return getattr(g, 'last_insert_id', None)
 
 def query(sql, params=[]):
     con = get_connection()

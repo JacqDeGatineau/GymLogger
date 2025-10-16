@@ -1,6 +1,4 @@
 import db
-import sqlite3
-from flask import g
 
 def get_exercises():
     sql = """SELECT t.id, t.title, t.link
@@ -18,7 +16,7 @@ def get_sessions(user_id):
     return db.query(sql, [user_id])
 
 def get_workouts_by_session(session_id):
-    sql = """SELECT w.sets, MAX(w.reps) AS reps, MAX(w.weight) AS weight, e.title
+    sql = """SELECT MAX(w.sets) AS sets, MAX(w.reps) AS reps, MAX(w.weight) AS weight, e.title
              FROM workout w
              JOIN exercises e ON w.exercise_id = e.id
              WHERE w.session_id = ?
@@ -43,22 +41,21 @@ def get_exercises_by_ids(selected_exercises):
     sql = f"""SELECT t.id, t.title
                FROM exercises t
                WHERE t.id IN ({placeholders})"""
-    
     return db.query(sql, selected_exercises)
 
 def get_exercise_by_id(selected_exercise):
     if not selected_exercise:
         return []
 
-    sql = f"""SELECT t.id, t.title
+    sql = """SELECT t.id, t.title
                FROM exercises t
                WHERE t.id = ?"""
-    
-    result = db.query(sql, [selected_exercise])  # Wrap selected_exercise in a list
-    if result:  
-        return result[0]['id']  # Return the exercise ID from the first row
+
+    result = db.query(sql, [selected_exercise])
+    if result:
+        return result[0]['id']
     else:
-        return None 
+        return None
 
 def add_session(user_id):
     sql = "INSERT INTO session (user_id, time) VALUES (?, datetime('now'))"
@@ -74,7 +71,7 @@ def delete_session(session_id):
 def delete_workouts(session_id):
     sql = "DELETE FROM workout WHERE session_id = ?"
     db.execute(sql, [session_id])
-    
+
 def add_workout(sets, reps, weight, session_id, exercise_id):
     sql = """INSERT INTO workout (sets, reps, weight, exercise_id, session_id)
              VALUES (?, ?, ?, ?, ?)"""
@@ -88,7 +85,7 @@ def get_feed():
     return db.query(sql)
 
 def add_feed(user_id, image, caption):
-    sql = """INSERT INTO feed (user_id, image, caption, time) 
+    sql = """INSERT INTO feed (user_id, image, caption, time)
              VALUES (?, ?, ?, datetime('now'))"""
     db.execute(sql, [user_id, image, caption])
     feed_id = db.last_insert_id()
@@ -102,7 +99,7 @@ def get_feed_image(feed_id):
     return None
 
 def add_comment(user_id, feed_id, comment):
-    sql = """INSERT INTO comments (user_id, feed_id, comment, time) 
+    sql = """INSERT INTO comments (user_id, feed_id, comment, time)
              VALUES (?, ?, ?, datetime('now'))"""
     db.execute(sql, [user_id, feed_id, comment])
 

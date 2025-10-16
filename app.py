@@ -1,15 +1,16 @@
 import sqlite3
-from flask import Flask, url_for
+import secrets
+from flask import Flask
 from flask import redirect, render_template, request, session, abort, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
-import secrets
-import config, gym
-import db
 import markupsafe
+import config
+import gym
+import db
 
 app = Flask(__name__)
 #for development only! Change for production!
-app.secret_key = config.secret_key
+app.secret_key = config.SECRET_KEY
 
 @app.route("/")
 def index():
@@ -26,11 +27,11 @@ def login():
 
     # Query for the user based on the username
     sql = "SELECT id, password_hash FROM users WHERE username = ?"
-    result = db.query(sql, [username])
+    user = db.query(sql, [username])
 
     # Check if the user exists
-    if result:
-        user_id, password_hash = result[0]
+    if user:
+        user_id, password_hash = user[0]
         # Verify the password
         if check_password_hash(password_hash, password):
             session["user_id"] = user_id
@@ -42,7 +43,6 @@ def login():
 
 @app.route("/logout")
 def logout():
-    #Function to log out the user
     del session["username"]
     return redirect("/")
 
@@ -168,8 +168,6 @@ def result():
     session_id = gym.add_session(user_id)
 
     for exercise in exercises_data:
-        #reps = request.form.getlist("reps[{}][]".format(exercise))
-        #weight = request.form.getlist("weight[{}][]".format(exercise))
         reps = request.form.getlist(f"reps[{exercise}][]")
         weight = request.form.getlist(f"weight[{exercise}][]")
         exercise_id = gym.get_exercise_by_id(exercise)
@@ -191,10 +189,10 @@ def end_workout():
 def feed():
     require_login()
 
-    feed = gym.get_feed()
+    comment_feed = gym.get_feed()
     feed_with_comments = []
 
-    for post in feed:
+    for post in comment_feed:
         post_dict = dict(post)  # Convert sqlite3.Row to dict
         post_dict['comments'] = gym.get_comments(post['id'])
         feed_with_comments.append(post_dict)
@@ -232,9 +230,9 @@ def comment():
     user_id = session["user_id"]
     feed_id = request.form.get("feed_id")
 
-    comment = request.form.get("comment")
-    if comment:
-        gym.add_comment(user_id, feed_id, comment)
+    user_comment = request.form.get("comment")
+    if user_comment:
+        gym.add_comment(user_id, feed_id, user_comment)
     return redirect("/feed")
 
 @app.template_filter()
